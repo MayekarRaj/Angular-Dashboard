@@ -19,7 +19,7 @@ import { CommonModule } from '@angular/common';
 
 export class DashboardComponent implements OnInit {
 
-  students$: Observable<Student[]> | undefined;
+  students: Student[] = [];
 
   first_name: string = "";
   last_name: string = "";
@@ -43,7 +43,7 @@ export class DashboardComponent implements OnInit {
     this.mobile = "";
   }
 
-  async addStudents(){
+  async addStudent(){ // Renamed to match the template
     if(this.first_name && this.last_name && this.email && this.mobile){
       const newStudent: Student = {
         id: '',
@@ -53,6 +53,7 @@ export class DashboardComponent implements OnInit {
         mobile: this.mobile,
       };
       await this.data.addStudent(newStudent);
+      this.getStudents(); // Refresh the student list after adding a new student
       this.resetForm();
     } else {
       alert("Please fill in the details");
@@ -62,12 +63,15 @@ export class DashboardComponent implements OnInit {
   async updateStudent() {}
 
   async deleteStudent(student: Student) {
-    if(window.confirm('Are you sure you want to delete? '+student.first_name+' '+student.last_name))
-      this.data.deleteStudent(student.id);
+    if(window.confirm('Are you sure you want to delete? '+student.first_name+' '+student.last_name)) {
+      await this.data.deleteStudent(student.id);
+      this.getStudents(); // Refresh the student list after deletion
+    }
   }
 
   getStudents() {
-    this.students$ = this.data.getAllStudents();
+    this.data.getAllStudents().subscribe(students => {
+      this.students = students;
+    });
   }
-
 }

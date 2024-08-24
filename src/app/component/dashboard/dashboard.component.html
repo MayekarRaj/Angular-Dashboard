@@ -1,42 +1,57 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-4">
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="first_name">
-                <label for="firstName">First Name</label>
+            <div class="card border-0 shadow p-3">
+                <div class="form-floating mb-3 text-center">
+                    <h3 class="text-center text-warning">Add Student</h3>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="first_name">
+                    <label for="firstName">First Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="last_name">
+                    <label for="lastName">Last Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="email" name="email" [(ngModel)]="email">
+                    <label for="email">Email</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="mobile" name="mobile" [(ngModel)]="mobile">
+                    <label for="mobile">Mobile</label>  
+                </div>
+                <button type="button" class="btn btn-outline-success" (click)="addStudent()">Add Student</button> <!-- Updated to match method name -->
             </div>
-            <div class="form-floating">
-                <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="last_name">
-                <label for="lastName">Last Name</label>
-            </div>
-            <div class="form-floating">
-                <input type="email" class="form-control" id="email" name="email" [(ngModel)]="email">
-                <label for="email">Email</label>
-            </div>
-            <div class="form-floating">
-                <input type="text" class="form-control" id="mobile" name="mobile" [(ngModel)]="mobile">
-                <label for="mobile">Mobile</label>
-            </div>
-            <button type="button" class="btn btn-outline-success" (click)="addStudent()">Add Student</button>
         </div>
-        <div class="col">
-
-        </div>
-    </div>
-    <!-- <div class="row min-vh-100 d-flex justify-content-center align-items-center">
-        <div class="col-12 col-md-6 col-lg-4">
-            <div class="card shadow">
+        <div class="col-md-8 mt-5">
+            <h5 class="text-danger">Student List</h5>
+            <div class="card p-3">
                 <div class="card-body">
-                    <form>
-                        <div class="mb-3 text-center">
-                            <h4 class="text-primary fw-bold">Welcome</h4>
-                        </div>
-                        <div class="d-grid mt-4">
-                            <button type="button" class="btn btn-danger" (click)="signOut()">Sign Out</button>
-                        </div>
-                    </form>
+                    <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">First Name</th>
+                            <th scope="col">Last Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Mobile</th>
+                            <th scope="col">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let student of students">
+                            <td>{{student.first_name}}</td>
+                            <td>{{student.last_name}}</td>
+                            <td>{{student.email}}</td>
+                            <td>{{student.mobile}}</td>
+                            <td>
+                              <button class="btn btn-outline-danger" (click)="deleteStudent(student)">Delete</button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
 </div>
